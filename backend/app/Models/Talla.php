@@ -14,6 +14,10 @@ class Talla extends Model
         'nombre',
     ];
 
+    protected $hidden = [
+        'pivot',
+    ];
+
     public function camisetas(): BelongsToMany
     {
         return $this->belongsToMany(Camiseta::class);
