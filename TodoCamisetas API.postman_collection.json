@@ -2,1450 +2,87 @@
   "info": {
     "_postman_id": "f1e3aa49-4db3-421b-94f1-f14d0fa1a1d2",
     "name": "TodoCamisetas API",
-    "description": "API REST para gestionar camisetas, clientes, tallas y calcular precio final segun el cliente consultado.",
+    "description": "Coleccion funcional para validar TodoCamisetas de forma secuencial en Postman Runner.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "27966462"
   },
+  "event": [],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "clienteId",
+      "value": ""
+    },
+    {
+      "key": "camisetaId",
+      "value": ""
+    },
+    {
+      "key": "tallaId",
+      "value": ""
+    },
+    {
+      "key": "runId",
+      "value": ""
+    },
+    {
+      "key": "clienteRut",
+      "value": ""
+    },
+    {
+      "key": "clienteEmail",
+      "value": ""
+    },
+    {
+      "key": "camisetaSku",
+      "value": ""
+    },
+    {
+      "key": "tallaNombre",
+      "value": ""
+    },
+    {
+      "key": "clientePreferencialId",
+      "value": ""
+    },
+    {
+      "key": "clienteRegularId",
+      "value": ""
+    },
+    {
+      "key": "camisetaOfertaId",
+      "value": ""
+    },
+    {
+      "key": "camisetaBaseId",
+      "value": ""
+    }
+  ],
   "item": [
     {
-      "name": "camisetas",
+      "name": "01 Health",
       "item": [
         {
-          "name": "{id}",
-          "item": [
+          "name": "01.01 Verificar estado del servicio",
+          "event": [
             {
-              "name": "tallas",
-              "item": [
-                {
-                  "name": "{tallaId}",
-                  "item": [
-                    {
-                      "name": "Desasociar talla de camiseta",
-                      "request": {
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas/:tallaId",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas",
-                            ":tallaId"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            },
-                            {
-                              "key": "tallaId",
-                              "value": "2"
-                            }
-                          ]
-                        }
-                      },
-                      "response": [
-                        {
-                          "name": "Talla desasociada",
-                          "originalRequest": {
-                            "method": "DELETE",
-                            "header": [],
-                            "url": {
-                              "raw": "{{baseUrl}}/camisetas/:id/tallas/:tallaId",
-                              "host": [
-                                "{{baseUrl}}"
-                              ],
-                              "path": [
-                                "camisetas",
-                                ":id",
-                                "tallas",
-                                ":tallaId"
-                              ],
-                              "variable": [
-                                {
-                                  "key": "id",
-                                  "value": "1"
-                                },
-                                {
-                                  "key": "tallaId",
-                                  "value": "2"
-                                }
-                              ]
-                            }
-                          },
-                          "status": "OK",
-                          "code": 200,
-                          "_postman_previewlanguage": "text",
-                          "header": [],
-                          "cookie": [],
-                          "body": ""
-                        },
-                        {
-                          "name": "Camiseta, talla o asociacion no encontrada",
-                          "originalRequest": {
-                            "method": "DELETE",
-                            "header": [],
-                            "url": {
-                              "raw": "{{baseUrl}}/camisetas/:id/tallas/:tallaId",
-                              "host": [
-                                "{{baseUrl}}"
-                              ],
-                              "path": [
-                                "camisetas",
-                                ":id",
-                                "tallas",
-                                ":tallaId"
-                              ],
-                              "variable": [
-                                {
-                                  "key": "id",
-                                  "value": "1"
-                                },
-                                {
-                                  "key": "tallaId",
-                                  "value": "2"
-                                }
-                              ]
-                            }
-                          },
-                          "status": "Not Found",
-                          "code": 404,
-                          "_postman_previewlanguage": "text",
-                          "header": [],
-                          "cookie": [],
-                          "body": ""
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "name": "Listar tallas asociadas a una camiseta",
-                  "request": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id",
-                        "tallas"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "response": [
-                    {
-                      "name": "Listado exitoso",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    },
-                    {
-                      "name": "Camiseta no encontrada",
-                      "originalRequest": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "Not Found",
-                      "code": 404,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    }
-                  ]
-                },
-                {
-                  "name": "Asociar talla a camiseta",
-                  "request": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"talla_id\": 2\n}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id",
-                        "tallas"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "response": [
-                    {
-                      "name": "Talla asociada",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"talla_id\": 2\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "OK",
-                      "code": 200,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    },
-                    {
-                      "name": "Camiseta no encontrada",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"talla_id\": 2\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "Not Found",
-                      "code": 404,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    },
-                    {
-                      "name": "Talla ya asociada",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"talla_id\": 2\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "Conflict",
-                      "code": 409,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    },
-                    {
-                      "name": "Errores de validacion",
-                      "originalRequest": {
-                        "method": "POST",
-                        "header": [
-                          {
-                            "key": "Content-Type",
-                            "value": "application/json"
-                          }
-                        ],
-                        "body": {
-                          "mode": "raw",
-                          "raw": "{\n  \"talla_id\": 2\n}",
-                          "options": {
-                            "raw": {
-                              "headerFamily": "json",
-                              "language": "json"
-                            }
-                          }
-                        },
-                        "url": {
-                          "raw": "{{baseUrl}}/camisetas/:id/tallas",
-                          "host": [
-                            "{{baseUrl}}"
-                          ],
-                          "path": [
-                            "camisetas",
-                            ":id",
-                            "tallas"
-                          ],
-                          "variable": [
-                            {
-                              "key": "id",
-                              "value": "1"
-                            }
-                          ]
-                        }
-                      },
-                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-                      "code": 422,
-                      "_postman_previewlanguage": "text",
-                      "header": [],
-                      "cookie": [],
-                      "body": ""
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "Obtener camiseta por ID",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas/:id?cliente_id=1",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas",
-                    ":id"
-                  ],
-                  "query": [
-                    {
-                      "key": "cliente_id",
-                      "value": "1"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Camiseta encontrada",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id?cliente_id=1",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "query": [
-                        {
-                          "key": "cliente_id",
-                          "value": "1"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Camiseta o cliente no encontrado",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id?cliente_id=1",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "query": [
-                        {
-                          "key": "cliente_id",
-                          "value": "1"
-                        }
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Actualizar camiseta",
-              "request": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Camiseta actualizada",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Camiseta no encontrada",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Errores de validacion",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-                  "code": 422,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Eliminar camiseta",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Camiseta eliminada",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Camiseta no encontrada",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/camisetas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "camisetas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
+                "type": "text/javascript"
+              }
             }
-          ]
-        },
-        {
-          "name": "Listar camisetas",
+          ],
           "request": {
             "method": "GET",
             "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/camisetas",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "camisetas"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Listado exitoso",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            }
-          ]
-        },
-        {
-          "name": "Crear camiseta",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Camiseta Local 2025\",\n  \"club\": \"Seleccion Chilena\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Local\",\n  \"color\": \"Rojo\",\n  \"precio\": 45000,\n  \"codigo_producto\": \"CHI-LOC-2025-01\",\n  \"precio_oferta\": 39990,\n  \"detalles\": \"Tela dry-fit, version hincha.\"\n}",
-              "options": {
-                "raw": {
-                  "headerFamily": "json",
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/camisetas",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "camisetas"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Camiseta creada",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"titulo\": \"Camiseta Local 2025\",\n  \"club\": \"Seleccion Chilena\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Local\",\n  \"color\": \"Rojo\",\n  \"precio\": 45000,\n  \"codigo_producto\": \"CHI-LOC-2025-01\",\n  \"precio_oferta\": 39990,\n  \"detalles\": \"Tela dry-fit, version hincha.\"\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas"
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            },
-            {
-              "name": "Errores de validacion",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"titulo\": \"Camiseta Local 2025\",\n  \"club\": \"Seleccion Chilena\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Local\",\n  \"color\": \"Rojo\",\n  \"precio\": 45000,\n  \"codigo_producto\": \"CHI-LOC-2025-01\",\n  \"precio_oferta\": 39990,\n  \"detalles\": \"Tela dry-fit, version hincha.\"\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/camisetas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "camisetas"
-                  ]
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "clientes",
-      "item": [
-        {
-          "name": "{id}",
-          "item": [
-            {
-              "name": "Obtener cliente por ID",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/clientes/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Cliente encontrado",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Cliente no encontrado",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Actualizar cliente",
-              "request": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/clientes/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Cliente actualizado",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Cliente no encontrado",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Errores de validacion",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-                  "code": 422,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Eliminar cliente",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/clientes/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Cliente eliminado",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Cliente no encontrado",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/clientes/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "clientes",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Listar clientes",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/clientes",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "clientes"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Listado exitoso",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/clientes",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            }
-          ]
-        },
-        {
-          "name": "Crear cliente",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"nombre_comercial\": \"90minutos\",\n  \"rut\": \"76123456-7\",\n  \"direccion\": \"Av. Apoquindo 1234, Las Condes\",\n  \"categoria\": \"Preferencial\",\n  \"contacto_nombre\": \"Carla Paredes\",\n  \"contacto_email\": \"compras@90minutos.cl\",\n  \"porcentaje_oferta\": 10\n}",
-              "options": {
-                "raw": {
-                  "headerFamily": "json",
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/clientes",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "clientes"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Cliente creado",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"nombre_comercial\": \"90minutos\",\n  \"rut\": \"76123456-7\",\n  \"direccion\": \"Av. Apoquindo 1234, Las Condes\",\n  \"categoria\": \"Preferencial\",\n  \"contacto_nombre\": \"Carla Paredes\",\n  \"contacto_email\": \"compras@90minutos.cl\",\n  \"porcentaje_oferta\": 10\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/clientes",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes"
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            },
-            {
-              "name": "Errores de validacion",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"nombre_comercial\": \"90minutos\",\n  \"rut\": \"76123456-7\",\n  \"direccion\": \"Av. Apoquindo 1234, Las Condes\",\n  \"categoria\": \"Preferencial\",\n  \"contacto_nombre\": \"Carla Paredes\",\n  \"contacto_email\": \"compras@90minutos.cl\",\n  \"porcentaje_oferta\": 10\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/clientes",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "clientes"
-                  ]
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "health",
-      "item": [
-        {
-          "name": "Verificar estado del servicio",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
             "url": {
               "raw": "{{baseUrl}}/health",
               "host": [
@@ -1456,420 +93,397 @@
               ]
             }
           },
-          "response": [
-            {
-              "name": "Servicio operativo",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{baseUrl}}/health",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "health"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n  \"status\": \"online\",\n  \"service\": \"TodoCamisetas API\",\n  \"version\": \"1.0.0\",\n  \"timestamp\": \"2026-06-12T10:30:00+00:00\"\n}"
-            }
-          ]
+          "response": []
         }
       ]
     },
     {
-      "name": "tallas",
+      "name": "02 Clientes",
       "item": [
         {
-          "name": "{id}",
-          "item": [
+          "name": "02.01 Listar clientes",
+          "event": [
             {
-              "name": "Obtener talla por ID",
-              "request": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/tallas/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Talla encontrada",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Talla no encontrada",
-                  "originalRequest": {
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Actualizar talla",
-              "request": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "const clientes = json.data || [];",
+                  "const preferencial = clientes.find(c => c.nombre_comercial === '90minutos');",
+                  "const regular = clientes.find(c => c.nombre_comercial === 'tdeportes');",
+                  "if (preferencial) pm.collectionVariables.set('clientePreferencialId', String(preferencial.id));",
+                  "if (regular) pm.collectionVariables.set('clienteRegularId', String(regular.id));"
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/tallas/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Talla actualizada",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Talla no encontrada",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Errores de validacion",
-                  "originalRequest": {
-                    "method": "PUT",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{}",
-                      "options": {
-                        "raw": {
-                          "headerFamily": "json",
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-                  "code": 422,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
-              ]
-            },
-            {
-              "name": "Eliminar talla",
-              "request": {
-                "method": "DELETE",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/tallas/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
-                }
-              },
-              "response": [
-                {
-                  "name": "Talla eliminada",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Talla no encontrada",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Not Found",
-                  "code": 404,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                },
-                {
-                  "name": "Talla asociada a camisetas",
-                  "originalRequest": {
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                      "raw": "{{baseUrl}}/tallas/:id",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "tallas",
-                        ":id"
-                      ],
-                      "variable": [
-                        {
-                          "key": "id",
-                          "value": "1"
-                        }
-                      ]
-                    }
-                  },
-                  "status": "Conflict",
-                  "code": 409,
-                  "_postman_previewlanguage": "text",
-                  "header": [],
-                  "cookie": [],
-                  "body": ""
-                }
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
               ]
             }
-          ]
+          },
+          "response": []
         },
         {
-          "name": "Listar tallas",
+          "name": "02.02 Crear cliente",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "if (!pm.collectionVariables.get('runId')) {",
+                  "    pm.collectionVariables.set('runId', Date.now().toString());",
+                  "}",
+                  "const runId = pm.collectionVariables.get('runId');",
+                  "pm.collectionVariables.set('clienteRut', `77${runId.slice(-6)}-1`);",
+                  "pm.collectionVariables.set('clienteEmail', `compras.${runId}@todocamisetas.test`);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('clienteId', json.data.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre_comercial\": \"deportes_total_{{runId}}\",\n  \"rut\": \"{{clienteRut}}\",\n  \"direccion\": \"Av. Grecia 123, Nunoa\",\n  \"categoria\": \"Preferencial\",\n  \"contacto_nombre\": \"Ana Torres\",\n  \"contacto_email\": \"{{clienteEmail}}\",\n  \"porcentaje_oferta\": 15\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02.03 Obtener cliente por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "02.04 Actualizar cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"direccion\": \"Av. Grecia 999, Nunoa\",\n  \"categoria\": \"Regular\",\n  \"contacto_nombre\": \"Ana Maria Torres\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 Camisetas",
+      "item": [
+        {
+          "name": "03.01 Listar camisetas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "const camisetas = json.data || [];",
+                  "const oferta = camisetas.find(c => c.codigo_producto === 'CHI-LOC-2025-01');",
+                  "const base = camisetas.find(c => c.codigo_producto === 'ARG-VIS-2025-01');",
+                  "if (oferta) pm.collectionVariables.set('camisetaOfertaId', String(oferta.id));",
+                  "if (base) pm.collectionVariables.set('camisetaBaseId', String(base.id));"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03.02 Crear camiseta",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "if (!pm.collectionVariables.get('runId')) {",
+                  "    pm.collectionVariables.set('runId', Date.now().toString());",
+                  "}",
+                  "const runId = pm.collectionVariables.get('runId');",
+                  "pm.collectionVariables.set('camisetaSku', `UCH-ALT-${runId}`);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('camisetaId', json.data.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Camiseta Alternativa 2025\",\n  \"club\": \"Universidad de Chile\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Alternativa\",\n  \"color\": \"Azul\",\n  \"precio\": 52990,\n  \"precio_oferta\": 47990,\n  \"detalles\": \"Version jugador manga corta.\",\n  \"codigo_producto\": \"{{camisetaSku}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/camisetas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03.03 Obtener camiseta por ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "03.04 Actualizar camiseta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"color\": \"Azul Marino\",\n  \"precio\": 54990,\n  \"precio_oferta\": 49990,\n  \"detalles\": \"Version jugador manga corta actualizada.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 Tallas",
+      "item": [
+        {
+          "name": "04.01 Listar tallas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
           "request": {
             "method": "GET",
             "header": [],
@@ -1883,47 +497,55 @@
               ]
             }
           },
-          "response": [
-            {
-              "name": "Listado exitoso",
-              "originalRequest": {
-                "method": "GET",
-                "header": [],
-                "url": {
-                  "raw": "{{baseUrl}}/tallas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            }
-          ]
+          "response": []
         },
         {
-          "name": "Crear talla",
+          "name": "04.02 Crear talla",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "if (!pm.collectionVariables.get('runId')) {",
+                  "    pm.collectionVariables.set('runId', Date.now().toString());",
+                  "}",
+                  "const runId = pm.collectionVariables.get('runId');",
+                  "pm.collectionVariables.set('tallaNombre', `XX${runId.slice(-2)}`);"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.collectionVariables.set('tallaId', json.data.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
           "request": {
             "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nombre\": \"M\"\n}",
+              "raw": "{\n  \"nombre\": \"{{tallaNombre}}\"\n}",
               "options": {
                 "raw": {
-                  "headerFamily": "json",
                   "language": "json"
                 }
               }
@@ -1938,90 +560,650 @@
               ]
             }
           },
-          "response": [
+          "response": []
+        },
+        {
+          "name": "04.03 Obtener talla por ID",
+          "event": [
             {
-              "name": "Talla creada",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"nombre\": \"M\"\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/tallas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas"
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
-            },
-            {
-              "name": "Errores de validacion",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"nombre\": \"M\"\n}",
-                  "options": {
-                    "raw": {
-                      "headerFamily": "json",
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/tallas",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "tallas"
-                  ]
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "_postman_previewlanguage": "text",
-              "header": [],
-              "cookie": [],
-              "body": ""
+                "type": "text/javascript"
+              }
             }
-          ]
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tallas/{{tallaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tallas",
+                "{{tallaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "04.04 Actualizar talla",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"{{tallaNombre}}-UPD\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tallas/{{tallaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tallas",
+                "{{tallaId}}"
+              ]
+            }
+          },
+          "response": []
         }
       ]
-    }
-  ],
-  "variable": [
+    },
     {
-      "key": "baseUrl",
-      "value": "http://localhost:8080/api"
+      "name": "05 Asociaciones",
+      "item": [
+        {
+          "name": "05.01 Asociar talla creada a camiseta creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"talla_id\": {{tallaId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}/tallas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}",
+                "tallas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05.02 Listar tallas asociadas a camiseta creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}/tallas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}",
+                "tallas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "05.03 Repetir asociacion para obtener 409",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 409', function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"talla_id\": {{tallaId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}/tallas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}",
+                "tallas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06 Precio Final",
+      "item": [
+        {
+          "name": "06.01 Precio final preferencial",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Precio final usa oferta', function () {",
+                  "    pm.expect(json.data.precio_final).to.eql('39990.00');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaOfertaId}}?cliente_id={{clientePreferencialId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaOfertaId}}"
+              ],
+              "query": [
+                {
+                  "key": "cliente_id",
+                  "value": "{{clientePreferencialId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "06.02 Precio final regular",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const json = pm.response.json();",
+                  "pm.test('Precio final usa precio base', function () {",
+                  "    pm.expect(json.data.precio_final).to.eql('47000.00');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaBaseId}}?cliente_id={{clienteRegularId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaBaseId}}"
+              ],
+              "query": [
+                {
+                  "key": "cliente_id",
+                  "value": "{{clienteRegularId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "07 Errores",
+      "item": [
+        {
+          "name": "07.01 Camiseta inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/999999?cliente_id={{clientePreferencialId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "999999"
+              ],
+              "query": [
+                {
+                  "key": "cliente_id",
+                  "value": "{{clientePreferencialId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07.02 Cliente inexistente para precio final",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 404', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaOfertaId}}?cliente_id=999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaOfertaId}}"
+              ],
+              "query": [
+                {
+                  "key": "cliente_id",
+                  "value": "999999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07.03 Crear talla invalida",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 422', function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/tallas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tallas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07.04 Crear camiseta duplicada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 422', function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"Duplicada\",\n  \"club\": \"Chile\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Local\",\n  \"color\": \"Rojo\",\n  \"precio\": 1000,\n  \"codigo_producto\": \"CHI-LOC-2025-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/camisetas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "07.05 Eliminar talla asociada del seeder",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 409', function () {",
+                  "    pm.response.to.have.status(409);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tallas/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tallas",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "08 Cleanup",
+      "item": [
+        {
+          "name": "08.01 Desasociar talla creada de camiseta creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}/tallas/{{tallaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}",
+                "tallas",
+                "{{tallaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08.02 Eliminar talla creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tallas/{{tallaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tallas",
+                "{{tallaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08.03 Eliminar camiseta creada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/camisetas/{{camisetaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "camisetas",
+                "{{camisetaId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "08.04 Eliminar cliente creado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
