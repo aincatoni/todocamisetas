@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Camiseta extends Model
@@ -20,6 +21,7 @@ class Camiseta extends Model
         'precio_oferta',
         'detalles',
         'codigo_producto',
+        'cliente_id',
     ];
 
     protected $casts = [
@@ -30,5 +32,10 @@ class Camiseta extends Model
     public function tallas(): BelongsToMany
     {
         return $this->belongsToMany(Talla::class);
+    }
+
+    public function cliente(): BelongsTo
+    {
+        return $this->belongsTo(Cliente::class);
     }
 }

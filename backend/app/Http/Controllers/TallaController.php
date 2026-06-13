@@ -6,6 +6,7 @@ use App\Models\Camiseta;
 use App\Models\Talla;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 use Throwable;
@@ -53,7 +54,9 @@ class TallaController extends Controller
                 return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
             }
 
-            return $this->successResponse(Talla::create($validator->validated()), 201);
+            $talla = DB::transaction(fn () => Talla::create($validator->validated()));
+
+            return $this->successResponse($talla, 201);
         } catch (Throwable $exception) {
             return $this->serverErrorResponse($exception, 'No fue posible crear la talla.');
         }
@@ -115,7 +118,9 @@ class TallaController extends Controller
                 return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
             }
 
-            $talla->update($validator->validated());
+            DB::transaction(function () use ($talla, $validator): void {
+                $talla->update($validator->validated());
+            });
 
             return $this->successResponse($talla->fresh());
         } catch (Throwable $exception) {
@@ -148,7 +153,9 @@ class TallaController extends Controller
                 return $this->errorResponse('No se puede eliminar una talla asociada a camisetas.', 409);
             }
 
-            $talla->delete();
+            DB::transaction(function () use ($talla): void {
+                $talla->delete();
+            });
 
             return $this->successResponse(['message' => 'Talla eliminada exitosamente.']);
         } catch (Throwable $exception) {
@@ -222,7 +229,9 @@ class TallaController extends Controller
                 return $this->errorResponse('La talla ya esta asociada a la camiseta.', 409);
             }
 
-            $camiseta->tallas()->attach($tallaId);
+            DB::transaction(function () use ($camiseta, $tallaId): void {
+                $camiseta->tallas()->attach($tallaId);
+            });
 
             return $this->successResponse($camiseta->fresh('tallas'));
         } catch (Throwable $exception) {
@@ -263,7 +272,9 @@ class TallaController extends Controller
                 return $this->errorResponse('La talla no esta asociada a la camiseta.', 404);
             }
 
-            $camiseta->tallas()->detach($talla->id);
+            DB::transaction(function () use ($camiseta, $talla): void {
+                $camiseta->tallas()->detach($talla->id);
+            });
 
             return $this->successResponse($camiseta->fresh('tallas'));
         } catch (Throwable $exception) {

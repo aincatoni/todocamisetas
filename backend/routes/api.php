@@ -17,6 +17,7 @@ Route::delete('camisetas/{id}', [CamisetaController::class, 'destroy']);
 Route::get('clientes', [ClienteController::class, 'index']);
 Route::post('clientes', [ClienteController::class, 'store']);
 Route::get('clientes/{id}', [ClienteController::class, 'show']);
+Route::get('clientes/{id}/camisetas', [ClienteController::class, 'camisetas']);
 Route::put('clientes/{id}', [ClienteController::class, 'update']);
 Route::delete('clientes/{id}', [ClienteController::class, 'destroy']);
 

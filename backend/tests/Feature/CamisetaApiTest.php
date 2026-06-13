@@ -48,6 +48,16 @@ class CamisetaApiTest extends TestCase
 
     public function test_can_create_update_and_delete_camiseta(): void
     {
+        $cliente = Cliente::create([
+            'nombre_comercial' => 'deportes_total',
+            'rut' => '77111222-3',
+            'direccion' => 'Av. Grecia 123, Nunoa',
+            'categoria' => 'Preferencial',
+            'contacto_nombre' => 'Ana Torres',
+            'contacto_email' => 'compras@deportestotal.cl',
+            'porcentaje_oferta' => 15,
+        ]);
+
         $payload = [
             'titulo' => 'Camiseta Alternativa 2025',
             'club' => 'Universidad de Chile',
@@ -58,6 +68,7 @@ class CamisetaApiTest extends TestCase
             'precio_oferta' => 47990,
             'detalles' => 'Version jugador manga corta.',
             'codigo_producto' => 'UCH-ALT-2025-01',
+            'cliente_id' => $cliente->id,
         ];
 
         $created = $this->postJson('/api/camisetas', $payload);
@@ -76,7 +87,8 @@ class CamisetaApiTest extends TestCase
 
         $updated->assertOk()
             ->assertJsonPath('data.color', 'Azul Marino')
-            ->assertJsonPath('data.precio', '54990.00');
+            ->assertJsonPath('data.precio', '54990.00')
+            ->assertJsonPath('data.cliente_id', $cliente->id);
 
         $deleted = $this->deleteJson("/api/camisetas/{$camisetaId}");
 
@@ -145,5 +157,51 @@ class CamisetaApiTest extends TestCase
                 'success' => false,
                 'message' => 'Cliente no encontrado.',
             ]);
+    }
+
+    public function test_can_list_camisetas_by_cliente(): void
+    {
+        $cliente = Cliente::create([
+            'nombre_comercial' => 'cliente_con_camisetas',
+            'rut' => '76123456-8',
+            'direccion' => 'Providencia, Santiago',
+            'categoria' => 'Regular',
+            'contacto_nombre' => 'Carla Paredes',
+            'contacto_email' => 'cliente@camisetas.cl',
+            'porcentaje_oferta' => 0,
+        ]);
+
+        Camiseta::create([
+            'titulo' => 'Camiseta Local 2025',
+            'club' => 'Seleccion Chilena',
+            'pais' => 'Chile',
+            'tipo' => 'Local',
+            'color' => 'Rojo',
+            'precio' => 45000,
+            'precio_oferta' => 39990,
+            'detalles' => 'Principal',
+            'codigo_producto' => 'CHI-LOC-2025-01',
+            'cliente_id' => $cliente->id,
+        ]);
+
+        Camiseta::create([
+            'titulo' => 'Camiseta Visita 2025',
+            'club' => 'Seleccion Argentina',
+            'pais' => 'Argentina',
+            'tipo' => 'Visita',
+            'color' => 'Azul',
+            'precio' => 47000,
+            'precio_oferta' => null,
+            'detalles' => 'Secundaria',
+            'codigo_producto' => 'ARG-VIS-2025-01',
+        ]);
+
+        $response = $this->getJson("/api/clientes/{$cliente->id}/camisetas");
+
+        $response->assertOk()
+            ->assertJsonPath('success', true)
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.cliente_id', $cliente->id)
+            ->assertJsonPath('data.0.codigo_producto', 'CHI-LOC-2025-01');
     }
 }

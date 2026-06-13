@@ -6,6 +6,7 @@ use App\Models\Camiseta;
 use App\Models\Cliente;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 use Throwable;
@@ -61,6 +62,7 @@ class CamisetaController extends Controller
                     new OA\Property(property: 'precio_oferta', type: 'number', format: 'float', nullable: true, example: 39990),
                     new OA\Property(property: 'detalles', type: 'string', nullable: true, example: 'Tela dry-fit, version hincha.'),
                     new OA\Property(property: 'codigo_producto', type: 'string', example: 'CHI-LOC-2025-01'),
+                    new OA\Property(property: 'cliente_id', type: 'integer', nullable: true, example: 1),
                 ]
             )
         ),
@@ -82,13 +84,16 @@ class CamisetaController extends Controller
                 'precio_oferta' => 'nullable|numeric|min:0|lte:precio',
                 'detalles' => 'nullable|string',
                 'codigo_producto' => 'required|string|max:100|unique:camisetas,codigo_producto',
+                'cliente_id' => 'nullable|integer|exists:clientes,id',
             ], $this->validationMessages(), $this->validationAttributes());
 
             if ($validator->fails()) {
                 return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
             }
 
-            return $this->successResponse(Camiseta::create($validator->validated()), 201);
+            $camiseta = DB::transaction(fn () => Camiseta::create($validator->validated()));
+
+            return $this->successResponse($camiseta, 201);
         } catch (Throwable $exception) {
             return $this->serverErrorResponse($exception, 'No fue posible crear la camiseta.');
         }
@@ -172,6 +177,7 @@ class CamisetaController extends Controller
                 'precio_oferta' => 'nullable|numeric|min:0',
                 'detalles' => 'nullable|string',
                 'codigo_producto' => 'sometimes|string|max:100|unique:camisetas,codigo_producto,'.$camiseta->id,
+                'cliente_id' => 'nullable|integer|exists:clientes,id',
             ], $this->validationMessages(), $this->validationAttributes());
 
             if ($validator->fails()) {
@@ -190,7 +196,9 @@ class CamisetaController extends Controller
                 }
             }
 
-            $camiseta->update($data);
+            DB::transaction(function () use ($camiseta, $data): void {
+                $camiseta->update($data);
+            });
 
             return $this->successResponse($camiseta->fresh('tallas'));
         } catch (Throwable $exception) {
@@ -218,7 +226,9 @@ class CamisetaController extends Controller
                 return $this->errorResponse('Camiseta no encontrada.', 404);
             }
 
-            $camiseta->delete();
+            DB::transaction(function () use ($camiseta): void {
+                $camiseta->delete();
+            });
 
             return $this->successResponse(['message' => 'Camiseta eliminada exitosamente.']);
         } catch (Throwable $exception) {

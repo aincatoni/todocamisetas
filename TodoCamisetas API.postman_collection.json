@@ -279,6 +279,38 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "02.05 Listar camisetas por cliente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes/{{clienteId}}/camisetas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes",
+                "{{clienteId}}",
+                "camisetas"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -365,7 +397,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Camiseta Alternativa 2025\",\n  \"club\": \"Universidad de Chile\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Alternativa\",\n  \"color\": \"Azul\",\n  \"precio\": 52990,\n  \"precio_oferta\": 47990,\n  \"detalles\": \"Version jugador manga corta.\",\n  \"codigo_producto\": \"{{camisetaSku}}\"\n}",
+              "raw": "{\n  \"titulo\": \"Camiseta Alternativa 2025\",\n  \"club\": \"Universidad de Chile\",\n  \"pais\": \"Chile\",\n  \"tipo\": \"Alternativa\",\n  \"color\": \"Azul\",\n  \"precio\": 52990,\n  \"precio_oferta\": 47990,\n  \"detalles\": \"Version jugador manga corta.\",\n  \"codigo_producto\": \"{{camisetaSku}}\",\n  \"cliente_id\": {{clienteId}}\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -444,7 +476,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"color\": \"Azul Marino\",\n  \"precio\": 54990,\n  \"precio_oferta\": 49990,\n  \"detalles\": \"Version jugador manga corta actualizada.\"\n}",
+              "raw": "{\n  \"color\": \"Azul Marino\",\n  \"precio\": 54990,\n  \"precio_oferta\": 49990,\n  \"detalles\": \"Version jugador manga corta actualizada.\",\n  \"cliente_id\": {{clienteId}}\n}",
               "options": {
                 "raw": {
                   "language": "json"

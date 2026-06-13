@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Camiseta;
 use App\Models\Cliente;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -116,5 +117,39 @@ class ClienteApiTest extends TestCase
         $this->assertDatabaseMissing('clientes', [
             'id' => $cliente->id,
         ]);
+    }
+
+    public function test_cannot_delete_cliente_with_associated_camisetas(): void
+    {
+        $cliente = Cliente::create([
+            'nombre_comercial' => 'cliente_base',
+            'rut' => '76123456-7',
+            'direccion' => 'Providencia, Santiago',
+            'categoria' => 'Regular',
+            'contacto_nombre' => 'Base Contacto',
+            'contacto_email' => 'base@cliente.cl',
+            'porcentaje_oferta' => 0,
+        ]);
+
+        Camiseta::create([
+            'titulo' => 'Camiseta Alternativa 2025',
+            'club' => 'Universidad de Chile',
+            'pais' => 'Chile',
+            'tipo' => 'Alternativa',
+            'color' => 'Azul',
+            'precio' => 52990,
+            'precio_oferta' => 47990,
+            'detalles' => 'Version jugador',
+            'codigo_producto' => 'UCH-ALT-2025-01',
+            'cliente_id' => $cliente->id,
+        ]);
+
+        $response = $this->deleteJson("/api/clientes/{$cliente->id}");
+
+        $response->assertStatus(409)
+            ->assertJson([
+                'success' => false,
+                'message' => 'No se puede eliminar un cliente con camisetas asociadas.',
+            ]);
     }
 }

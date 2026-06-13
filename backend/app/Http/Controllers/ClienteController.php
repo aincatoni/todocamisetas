@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
 use Throwable;
@@ -76,7 +77,9 @@ class ClienteController extends Controller
                 return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
             }
 
-            return $this->successResponse(Cliente::create($validator->validated()), 201);
+            $cliente = DB::transaction(fn () => Cliente::create($validator->validated()));
+
+            return $this->successResponse($cliente, 201);
         } catch (Throwable $exception) {
             return $this->serverErrorResponse($exception, 'No fue posible crear el cliente.');
         }
@@ -105,6 +108,32 @@ class ClienteController extends Controller
             return $this->successResponse($cliente);
         } catch (Throwable $exception) {
             return $this->serverErrorResponse($exception, 'No fue posible obtener el cliente.');
+        }
+    }
+
+    #[OA\Get(
+        path: '/clientes/{id}/camisetas',
+        operationId: 'getClienteCamisetas',
+        tags: ['Clientes'],
+        summary: 'Listar camisetas de un cliente',
+        parameters: [new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'), example: 1)],
+        responses: [
+            new OA\Response(response: 200, description: 'Listado exitoso'),
+            new OA\Response(response: 404, description: 'Cliente no encontrado'),
+        ]
+    )]
+    public function camisetas(string $id): JsonResponse
+    {
+        try {
+            $cliente = Cliente::with('camisetas')->find($id);
+
+            if (! $cliente) {
+                return $this->errorResponse('Cliente no encontrado.', 404);
+            }
+
+            return $this->successResponse($cliente->camisetas);
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible listar las camisetas del cliente.');
         }
     }
 
@@ -144,7 +173,9 @@ class ClienteController extends Controller
                 return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
             }
 
-            $cliente->update($validator->validated());
+            DB::transaction(function () use ($cliente, $validator): void {
+                $cliente->update($validator->validated());
+            });
 
             return $this->successResponse($cliente->fresh());
         } catch (Throwable $exception) {
@@ -172,7 +203,13 @@ class ClienteController extends Controller
                 return $this->errorResponse('Cliente no encontrado.', 404);
             }
 
-            $cliente->delete();
+            if ($cliente->camisetas()->exists()) {
+                return $this->errorResponse('No se puede eliminar un cliente con camisetas asociadas.', 409);
+            }
+
+            DB::transaction(function () use ($cliente): void {
+                $cliente->delete();
+            });
 
             return $this->successResponse(['message' => 'Cliente eliminado exitosamente.']);
         } catch (Throwable $exception) {

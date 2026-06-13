@@ -119,6 +119,11 @@
                                     "codigo_producto": {
                                         "type": "string",
                                         "example": "CHI-LOC-2025-01"
+                                    },
+                                    "cliente_id": {
+                                        "type": "integer",
+                                        "example": 1,
+                                        "nullable": true
                                     }
                                 },
                                 "type": "object"
@@ -414,6 +419,34 @@
                 "responses": {
                     "200": {
                         "description": "Cliente eliminado"
+                    },
+                    "404": {
+                        "description": "Cliente no encontrado"
+                    }
+                }
+            }
+        },
+        "/clientes/{id}/camisetas": {
+            "get": {
+                "tags": [
+                    "Clientes"
+                ],
+                "summary": "Listar camisetas de un cliente",
+                "operationId": "getClienteCamisetas",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Listado exitoso"
                     },
                     "404": {
                         "description": "Cliente no encontrado"
