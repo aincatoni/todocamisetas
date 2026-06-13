@@ -118,6 +118,19 @@ Capturas sugeridas:
 - `05_clientes_put_00.png`
 - `05_clientes_put_01.png`
 
+### 2.4.1 `GET /clientes/{id}/camisetas`
+
+Objetivo: comprobar el endpoint de camisetas asociadas por cliente.
+
+Usar:
+
+- `id = cliente_nuevo_id`
+
+Captura sugerida:
+
+- alternativa vacia: `05b_clientes_camisetas_get_vacio.png`
+- alternativa con datos: `12b_clientes_camisetas_get_con_datos.png`
+
 ### 2.5 `POST /clientes` invalido
 
 Objetivo: evidenciar validacion `422`.
@@ -159,6 +172,22 @@ Captura sugerida:
 
 - `08_clientes_delete.png`
 
+### 2.8 `DELETE /clientes/{id}` con camisetas asociadas
+
+Objetivo: evidenciar `409` cuando el cliente aun tiene camisetas asociadas.
+
+Prerequisito:
+
+- ejecutar primero `POST /camisetas` de la seccion 3 usando `cliente_id = cliente_nuevo_id`
+
+Usar:
+
+- `id = cliente_nuevo_id`
+
+Captura sugerida:
+
+- `08b_clientes_delete_409_con_camisetas.png`
+
 ## 3. Camisetas
 
 ### 3.1 `GET /camisetas`
@@ -185,11 +214,16 @@ Body:
   "precio": 52990,
   "precio_oferta": 47990,
   "detalles": "Version jugador manga corta.",
-  "codigo_producto": "UCH-ALT-2025-01"
+  "codigo_producto": "UCH-ALT-2025-01",
+  "cliente_id": 3
 }
 ```
 
 Guardar el `id` retornado. En este plan se llamara `camiseta_nueva_id`.
+
+Nota:
+
+- si estas siguiendo el flujo completo, reemplaza `cliente_id = 3` por `cliente_nuevo_id`
 
 Capturas sugeridas:
 
@@ -223,7 +257,8 @@ Body:
   "color": "Azul Marino",
   "precio": 54990,
   "precio_oferta": 49990,
-  "detalles": "Version jugador manga corta actualizada."
+  "detalles": "Version jugador manga corta actualizada.",
+  "cliente_id": 3
 }
 ```
 
@@ -231,6 +266,18 @@ Capturas sugeridas:
 
 - `12_camisetas_put_00.png`
 - `12_camisetas_put_01.png`
+
+### 3.4.1 `GET /clientes/{id}/camisetas`
+
+Objetivo: comprobar que el cliente usado en `POST /camisetas` ya lista la camiseta creada.
+
+Usar:
+
+- `id = cliente_nuevo_id`
+
+Captura sugerida:
+
+- `12b_clientes_camisetas_get_con_datos.png`
 
 ### 3.5 `POST /camisetas` duplicado
 

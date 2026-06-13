@@ -91,6 +91,7 @@ erDiagram
         decimal precio_oferta
         text detalles
         string codigo_producto UK
+        bigint cliente_id FK
         datetime created_at
         datetime updated_at
     }
@@ -148,6 +149,7 @@ Campos:
 - `precio_oferta` nullable
 - `detalles` nullable
 - `codigo_producto` unico
+- `cliente_id` nullable
 
 Reglas:
 
@@ -156,6 +158,7 @@ Reglas:
 - al crear, `precio_oferta` no puede ser mayor que `precio`
 - al actualizar, se vuelve a validar que `precio_oferta` no supere el precio base efectivo
 - `codigo_producto` debe ser unico
+- `cliente_id`, cuando se informa, debe existir en `clientes`
 
 #### `tallas`
 
@@ -177,6 +180,14 @@ Reglas de integridad:
 - `talla_id` usa `restrictOnDelete()`
 - existe restriccion `unique(camiseta_id, talla_id)` para evitar asociaciones duplicadas
 
+#### Relacion cliente-camiseta
+
+Reglas:
+
+- una camiseta puede asociarse de forma opcional a un cliente
+- `GET /api/clientes/{id}/camisetas` lista las camisetas asociadas a ese cliente
+- no se puede eliminar un cliente si todavia tiene camisetas asociadas
+
 ## Decisiones de desarrollo y arquitectura
 
 Estas fueron las decisiones principales reflejadas en la implementacion:
@@ -184,7 +195,7 @@ Estas fueron las decisiones principales reflejadas en la implementacion:
 1. Se uso Laravel 11 porque permite resolver rapidamente routing, validaciones, ORM, migraciones, seeders y testing en una estructura limpia.
 2. Se separo el dominio en tres recursos principales (`clientes`, `camisetas`, `tallas`) para mantener endpoints claros y alineados con REST.
 3. La relacion `camisetas` - `tallas` se modelo con una tabla pivote porque una camiseta puede existir en varias tallas y una talla puede reutilizarse en varias camisetas.
-4. `cliente_id` no se persiste en `camisetas`; se usa solo como parametro de consulta para calcular `precio_final` en tiempo de respuesta.
+4. `cliente_id` puede persistirse en `camisetas` para asociarlas comercialmente a un cliente y tambien puede enviarse como query param para calcular `precio_final` en tiempo de respuesta.
 5. `precio_final` no se guarda en base de datos; es un valor derivado de la regla de negocio y se calcula dinamicamente en `GET /api/camisetas/{id}`.
 6. Se implemento un trait `ApiResponse` para homogeneizar respuestas exitosas y de error en toda la API.
 7. Las validaciones se dejaron a nivel de controlador con mensajes en espanol para facilitar la correccion funcional del examen.
@@ -304,6 +315,7 @@ La decision aplicada fue mantener los `if` dentro del flujo normal y envolver lo
 - `GET /api/clientes`
 - `POST /api/clientes`
 - `GET /api/clientes/{id}`
+- `GET /api/clientes/{id}/camisetas`
 - `PUT /api/clientes/{id}`
 - `DELETE /api/clientes/{id}`
 
@@ -347,6 +359,12 @@ Parametro adicional en `GET /api/camisetas/{id}`:
 - `404` recurso no encontrado
 - `409` conflicto de integridad o asociacion duplicada
 - `422` error de validacion
+
+Casos `409` cubiertos:
+
+- eliminar un cliente con camisetas asociadas
+- eliminar una talla asociada a camisetas
+- asociar una talla duplicada a una camiseta
 
 ## Datos semilla
 
@@ -416,8 +434,8 @@ La API incluye pruebas Feature para validar los flujos principales y errores esp
 
 Resultado verificado:
 
-- `14` tests aprobados
-- `77` assertions
+- `16` tests aprobados
+- `85` assertions
 
 Comando:
 
@@ -463,6 +481,7 @@ Tambien incorpora variables de coleccion para reutilizar IDs generados durante l
 - `clientePreferencialId`
 - `clienteRegularId`
 - `camisetaOfertaId`
+- `camisetaBaseId`
 
 ## Anexos tecnicos
 
@@ -513,6 +532,14 @@ Las siguientes capturas quedaron integradas dentro del repositorio en `Evidencia
 7. `DELETE /api/clientes/{id}`
 
 ![Eliminar cliente](Evidencias/swaggerui/08_clientes_delete.png)
+
+8. `DELETE /api/clientes/{id}` con camisetas asociadas
+
+![Eliminar cliente con conflicto](Evidencias/swaggerui/08b_clientes_delete_409_con_camisetas.png)
+
+9. `GET /api/clientes/{id}/camisetas`
+
+![Listar camisetas por cliente](Evidencias/swaggerui/12b_clientes_camisetas_get_con_datos.png)
 
 #### Camisetas
 

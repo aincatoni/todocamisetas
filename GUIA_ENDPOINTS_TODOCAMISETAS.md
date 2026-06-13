@@ -43,6 +43,7 @@ flowchart LR
 
 - administrar `camisetas`
 - administrar `clientes`
+- listar camisetas asociadas a un cliente
 - administrar `tallas`
 - asociar tallas a camisetas mediante tabla pivote
 - calcular `precio_final` en `GET /camisetas/{id}` usando `cliente_id` como query param
@@ -79,6 +80,7 @@ erDiagram
         decimal precio_oferta
         text detalles
         string codigo_producto UK
+        bigint cliente_id FK
         datetime created_at
         datetime updated_at
     }
@@ -129,6 +131,7 @@ erDiagram
 | `precio_oferta` | decimal | opcional, nullable |
 | `detalles` | text | opcional |
 | `codigo_producto` | string | requerido, unico |
+| `cliente_id` | bigint | opcional, referencia a `clientes.id` |
 
 #### Tabla `tallas`
 
@@ -138,10 +141,10 @@ erDiagram
 
 ### Decisiones de modelado
 
-- `clientes` y `camisetas` no tienen relacion fisica directa.
+- `clientes` y `camisetas` pueden relacionarse de forma opcional mediante `cliente_id`.
 - `tallas` se modela como catalogo reutilizable.
 - la relacion `camisetas` - `tallas` es muchos a muchos.
-- `cliente_id` no se guarda en `camisetas`; solo se usa en consulta.
+- `cliente_id` puede guardarse en `camisetas` para asignacion comercial y tambien puede usarse en consulta para `precio_final`.
 - `precio_final` no se persiste; se calcula en tiempo de respuesta.
 
 ### Regla funcional derivada
@@ -256,7 +259,8 @@ Crea una camiseta.
   "precio": 45000,
   "precio_oferta": 39990,
   "detalles": "Tela dry-fit, version hincha",
-  "codigo_producto": "CHI-LOC-2025-01"
+  "codigo_producto": "CHI-LOC-2025-01",
+  "cliente_id": 1
 }
 ```
 
@@ -343,6 +347,16 @@ Crea un cliente.
 ### `GET /clientes/{id}`
 
 Obtiene un cliente por ID.
+
+### `GET /clientes/{id}/camisetas`
+
+Lista las camisetas asociadas a un cliente especifico.
+
+**Respuesta 200:** array de camisetas del cliente.
+
+**Errores**
+
+- `404` si el cliente no existe.
 
 ### `PUT /clientes/{id}`
 
@@ -485,6 +499,7 @@ Si se envia `cliente_id` y el cliente no existe, la API debe responder `404`.
 | `GET` | `/api/clientes` | listar clientes |
 | `POST` | `/api/clientes` | crear cliente |
 | `GET` | `/api/clientes/{id}` | ver cliente |
+| `GET` | `/api/clientes/{id}/camisetas` | listar camisetas asociadas a un cliente |
 | `PUT` | `/api/clientes/{id}` | actualizar cliente |
 | `DELETE` | `/api/clientes/{id}` | eliminar cliente |
 | `GET` | `/api/tallas` | listar tallas |
@@ -516,12 +531,12 @@ Si se envia `cliente_id` y el cliente no existe, la API debe responder `404`.
 - `rut` debe ser unico en `clientes`
 - `nombre` debe ser unico en `tallas`
 - la asociacion `camiseta_id` + `talla_id` no debe duplicarse
-- `cliente_id` solo participa en consulta, no en persistencia
+- `cliente_id` puede persistirse en `camisetas` para asociacion comercial y tambien usarse como query param para `precio_final`
 - el endpoint de detalle de camiseta debe incluir tallas asociadas
 - los datos semilla recomendados son `90minutos`, `tdeportes`, y tallas `S`, `M`, `L`, `XL`
 - la API usa respuestas JSON homogeneas con `success`, `data`, `message` y `errors` segun corresponda
 - los duplicados de `rut`, `codigo_producto` y `nombre` se resuelven por validacion y responden `422`
-- los `409` implementados cubren asociacion de talla duplicada y eliminacion de talla asociada a camisetas
+- los `409` implementados cubren asociacion de talla duplicada, eliminacion de talla asociada a camisetas y eliminacion de cliente con camisetas asociadas
 
 ### Criterios aplicados en la implementacion
 
