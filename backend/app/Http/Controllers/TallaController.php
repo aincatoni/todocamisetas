@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Attributes as OA;
+use Throwable;
 
 class TallaController extends Controller
 {
@@ -20,7 +21,11 @@ class TallaController extends Controller
     )]
     public function index(): JsonResponse
     {
-        return $this->successResponse(Talla::query()->orderBy('nombre')->get());
+        try {
+            return $this->successResponse(Talla::query()->orderBy('nombre')->get());
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible listar las tallas.');
+        }
     }
 
     #[OA\Post(
@@ -39,15 +44,19 @@ class TallaController extends Controller
     )]
     public function store(Request $request): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:20|unique:tallas,nombre',
-        ], $this->validationMessages(), $this->validationAttributes());
+        try {
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:20|unique:tallas,nombre',
+            ], $this->validationMessages(), $this->validationAttributes());
 
-        if ($validator->fails()) {
-            return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
+            if ($validator->fails()) {
+                return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
+            }
+
+            return $this->successResponse(Talla::create($validator->validated()), 201);
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible crear la talla.');
         }
-
-        return $this->successResponse(Talla::create($validator->validated()), 201);
     }
 
     #[OA\Get(
@@ -63,13 +72,17 @@ class TallaController extends Controller
     )]
     public function show(string $id): JsonResponse
     {
-        $talla = Talla::find($id);
+        try {
+            $talla = Talla::find($id);
 
-        if (! $talla) {
-            return $this->errorResponse('Talla no encontrada.', 404);
+            if (! $talla) {
+                return $this->errorResponse('Talla no encontrada.', 404);
+            }
+
+            return $this->successResponse($talla);
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible obtener la talla.');
         }
-
-        return $this->successResponse($talla);
     }
 
     #[OA\Put(
@@ -87,23 +100,27 @@ class TallaController extends Controller
     )]
     public function update(Request $request, string $id): JsonResponse
     {
-        $talla = Talla::find($id);
+        try {
+            $talla = Talla::find($id);
 
-        if (! $talla) {
-            return $this->errorResponse('Talla no encontrada.', 404);
+            if (! $talla) {
+                return $this->errorResponse('Talla no encontrada.', 404);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'sometimes|string|max:20|unique:tallas,nombre,'.$talla->id,
+            ], $this->validationMessages(), $this->validationAttributes());
+
+            if ($validator->fails()) {
+                return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
+            }
+
+            $talla->update($validator->validated());
+
+            return $this->successResponse($talla->fresh());
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible actualizar la talla.');
         }
-
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'sometimes|string|max:20|unique:tallas,nombre,'.$talla->id,
-        ], $this->validationMessages(), $this->validationAttributes());
-
-        if ($validator->fails()) {
-            return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
-        }
-
-        $talla->update($validator->validated());
-
-        return $this->successResponse($talla->fresh());
     }
 
     #[OA\Delete(
@@ -120,19 +137,23 @@ class TallaController extends Controller
     )]
     public function destroy(string $id): JsonResponse
     {
-        $talla = Talla::find($id);
+        try {
+            $talla = Talla::find($id);
 
-        if (! $talla) {
-            return $this->errorResponse('Talla no encontrada.', 404);
+            if (! $talla) {
+                return $this->errorResponse('Talla no encontrada.', 404);
+            }
+
+            if ($talla->camisetas()->exists()) {
+                return $this->errorResponse('No se puede eliminar una talla asociada a camisetas.', 409);
+            }
+
+            $talla->delete();
+
+            return $this->successResponse(['message' => 'Talla eliminada exitosamente.']);
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible eliminar la talla.');
         }
-
-        if ($talla->camisetas()->exists()) {
-            return $this->errorResponse('No se puede eliminar una talla asociada a camisetas.', 409);
-        }
-
-        $talla->delete();
-
-        return $this->successResponse(['message' => 'Talla eliminada exitosamente.']);
     }
 
     #[OA\Get(
@@ -148,13 +169,17 @@ class TallaController extends Controller
     )]
     public function listByCamiseta(string $id): JsonResponse
     {
-        $camiseta = Camiseta::with('tallas')->find($id);
+        try {
+            $camiseta = Camiseta::with('tallas')->find($id);
 
-        if (! $camiseta) {
-            return $this->errorResponse('Camiseta no encontrada.', 404);
+            if (! $camiseta) {
+                return $this->errorResponse('Camiseta no encontrada.', 404);
+            }
+
+            return $this->successResponse($camiseta->tallas);
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible obtener las tallas de la camiseta.');
         }
-
-        return $this->successResponse($camiseta->tallas);
     }
 
     #[OA\Post(
@@ -176,29 +201,33 @@ class TallaController extends Controller
     )]
     public function attachToCamiseta(Request $request, string $id): JsonResponse
     {
-        $camiseta = Camiseta::with('tallas')->find($id);
+        try {
+            $camiseta = Camiseta::with('tallas')->find($id);
 
-        if (! $camiseta) {
-            return $this->errorResponse('Camiseta no encontrada.', 404);
+            if (! $camiseta) {
+                return $this->errorResponse('Camiseta no encontrada.', 404);
+            }
+
+            $validator = Validator::make($request->all(), [
+                'talla_id' => 'required|integer|exists:tallas,id',
+            ], $this->validationMessages(), $this->validationAttributes());
+
+            if ($validator->fails()) {
+                return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
+            }
+
+            $tallaId = (int) $validator->validated()['talla_id'];
+
+            if ($camiseta->tallas()->where('tallas.id', $tallaId)->exists()) {
+                return $this->errorResponse('La talla ya esta asociada a la camiseta.', 409);
+            }
+
+            $camiseta->tallas()->attach($tallaId);
+
+            return $this->successResponse($camiseta->fresh('tallas'));
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible asociar la talla a la camiseta.');
         }
-
-        $validator = Validator::make($request->all(), [
-            'talla_id' => 'required|integer|exists:tallas,id',
-        ], $this->validationMessages(), $this->validationAttributes());
-
-        if ($validator->fails()) {
-            return $this->errorResponse('Los datos enviados no son validos.', 422, $validator->errors()->toArray());
-        }
-
-        $tallaId = (int) $validator->validated()['talla_id'];
-
-        if ($camiseta->tallas()->where('tallas.id', $tallaId)->exists()) {
-            return $this->errorResponse('La talla ya esta asociada a la camiseta.', 409);
-        }
-
-        $camiseta->tallas()->attach($tallaId);
-
-        return $this->successResponse($camiseta->fresh('tallas'));
     }
 
     #[OA\Delete(
@@ -217,24 +246,28 @@ class TallaController extends Controller
     )]
     public function detachFromCamiseta(string $id, string $tallaId): JsonResponse
     {
-        $camiseta = Camiseta::with('tallas')->find($id);
+        try {
+            $camiseta = Camiseta::with('tallas')->find($id);
 
-        if (! $camiseta) {
-            return $this->errorResponse('Camiseta no encontrada.', 404);
+            if (! $camiseta) {
+                return $this->errorResponse('Camiseta no encontrada.', 404);
+            }
+
+            $talla = Talla::find($tallaId);
+
+            if (! $talla) {
+                return $this->errorResponse('Talla no encontrada.', 404);
+            }
+
+            if (! $camiseta->tallas()->where('tallas.id', $talla->id)->exists()) {
+                return $this->errorResponse('La talla no esta asociada a la camiseta.', 404);
+            }
+
+            $camiseta->tallas()->detach($talla->id);
+
+            return $this->successResponse($camiseta->fresh('tallas'));
+        } catch (Throwable $exception) {
+            return $this->serverErrorResponse($exception, 'No fue posible desasociar la talla de la camiseta.');
         }
-
-        $talla = Talla::find($tallaId);
-
-        if (! $talla) {
-            return $this->errorResponse('Talla no encontrada.', 404);
-        }
-
-        if (! $camiseta->tallas()->where('tallas.id', $talla->id)->exists()) {
-            return $this->errorResponse('La talla no esta asociada a la camiseta.', 404);
-        }
-
-        $camiseta->tallas()->detach($talla->id);
-
-        return $this->successResponse($camiseta->fresh('tallas'));
     }
 }

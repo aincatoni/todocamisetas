@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ApiResponse;
+use Throwable;
 use OpenApi\Attributes as OA;
 
 #[OA\Info(
@@ -21,6 +22,13 @@ use OpenApi\Attributes as OA;
 abstract class Controller
 {
     use ApiResponse;
+
+    protected function serverErrorResponse(Throwable $exception, string $message = 'Ocurrio un error interno.'): \Illuminate\Http\JsonResponse
+    {
+        report($exception);
+
+        return $this->errorResponse($message, 500);
+    }
 
     protected function validationMessages(): array
     {
