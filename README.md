@@ -548,13 +548,19 @@ Las siguientes capturas quedaron integradas dentro del repositorio en `Evidencia
 
 1. `GET /api/camisetas/{id}` con cliente preferencial
 
+Caso documentado: `id = 1`, `cliente_id = 1`, `precio_final = 39990.00`
+
 ![Precio final preferencial](Evidencias/swaggerui/16_precio_final_preferencial.png)
 
 2. `GET /api/camisetas/{id}` con cliente regular
 
+Caso documentado: `id = 1`, `cliente_id = 2`, `precio_final = 45000.00`
+
 ![Precio final regular](Evidencias/swaggerui/17_precio_final_regular.png)
 
 3. `GET /api/camisetas/{id}` con `cliente_id` inexistente
+
+Caso documentado: `id = 2`, `cliente_id = 999`, respuesta `404`
 
 ![Cliente no encontrado para precio final](Evidencias/swaggerui/18_precio_final_cliente_404.png)
 

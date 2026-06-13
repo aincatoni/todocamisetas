@@ -306,13 +306,16 @@ Objetivo: demostrar que `precio_final = precio`.
 
 Usar:
 
-- `id = 2`
+- `id = 1`
 - `cliente_id = 2`
 
 Resultado esperado:
 
 - `cliente_consultado.categoria = Regular`
-- `precio_final = 47000.00`
+- `precio_final = 45000.00`
+- `precio_oferta = 39990.00`
+
+Nota: este caso es mas fuerte si se usa la misma camiseta con oferta del escenario preferencial, porque demuestra que el precio cambia por el tipo de cliente y no por el producto consultado.
 
 Captura sugerida:
 
